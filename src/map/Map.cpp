@@ -370,7 +370,8 @@ void Map::generateRooms(ASGE::Renderer* renderer,
   }
 
   last_room->setType(Room::EXIT);
-  generateItemRooms();
+  last_room->canMove(false);
+  generateItemRooms(renderer, game_width / 2, game_height / 2);
   generateEnemies(renderer, game_width, game_height);
 
   setupMinimap(renderer, game_width, game_height);
@@ -547,7 +548,9 @@ void Map::checkWestDoorCollision(Player* player)
   }
 }
 
-void Map::generateItemRooms()
+void Map::generateItemRooms(ASGE::Renderer* renderer,
+                            int game_width,
+                            int game_height)
 {
   int item_room_num = rand() % 3 + 2;
 
@@ -561,6 +564,7 @@ void Map::generateItemRooms()
     }
 
     getRoom(id)->setType(Room::ITEM);
+    getRoom(id)->addItemToRoom(renderer, game_width / 2, game_height / 2);
   }
 }
 

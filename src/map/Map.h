@@ -44,6 +44,8 @@ class Map
   std::vector<GameObject*> getEnemies(bool include_objects);
 
  private:
+  void
+  generateItemRooms(ASGE::Renderer* renderer, int game_width, int game_height);
   void setupBoundingBox(CollisionComponent* component,
                         float x_pos,
                         float y_pos,
@@ -53,8 +55,6 @@ class Map
   void checkEastDoorCollision(Player* player);
   void checkSouthDoorCollision(Player* player);
   void checkWestDoorCollision(Player* player);
-
-  void generateItemRooms();
   void
   generateEnemies(ASGE::Renderer* renderer, int game_width, int game_height);
   void updateMiniMap();

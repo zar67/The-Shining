@@ -9,18 +9,20 @@
 #include "string"
 #include <Engine/OGLGame.h>
 
-class Items : GameObject
+class Items : public GameObject
 {
  public:
+  Items() = default;
+  ~Items() = default;
+
   bool hasCollidedWithPlayer();
   void hasPickedUpItem();
-  float itemEffect();
-  bool setUpItems(ASGE::Renderer* renderer);
+
+  bool setUpItems(ASGE::Renderer* renderer, float x_pos, float y_pos);
   void renderItem(ASGE::Renderer* renderer);
 
  private:
   bool visibility = true;
-  GameObject Item;
   std::string item_Name = "";
 };
 

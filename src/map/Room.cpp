@@ -34,6 +34,12 @@ Room::~Room()
     delete ghost;
   }
   ghosts.clear();
+
+  for (auto item : items)
+  {
+    delete item;
+  }
+  items.clear();
 }
 
 bool Room::setup(ASGE::Renderer* renderer, std::string* filename)
@@ -119,9 +125,14 @@ void Room::renderObjectsInRoom(ASGE::Renderer* renderer)
   {
     ghosts.at(i)->render(renderer);
   }
+
   for (auto& obj : interactable_objs)
   {
     renderer->renderSprite(*obj->spriteComponent()->getSprite());
+
+  for (int i = 0; i < items.size(); i++)
+  {
+    items.at(i)->renderItem(renderer);
   }
 }
 
@@ -226,4 +237,19 @@ void Room::checkEnemyHealth()
 std::vector<InteractableObjects*> Room::getObjectsInRoom()
 {
   return interactable_objs;
+}
+  
+void Room::removeItemToRoom(int item_index)
+{
+  if (item_index < items.size())
+  {
+    items.erase(items.begin() + item_index);
+  }
+}
+  
+void Room::addItemToRoom(ASGE::Renderer* renderer, float x_pos, float y_pos)
+{
+  Items* new_Item = new Items();
+  items.push_back(new_Item);
+  items.at(items.size() - 1)->setUpItems(renderer, x_pos, y_pos);
 }
